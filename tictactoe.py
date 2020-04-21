@@ -11,28 +11,39 @@ import pyautogui
 MOUSE_X, MOUSE_Y = pyautogui.position()
 PIXEL = pyautogui.screenshot(region=(MOUSE_X, MOUSE_Y, 1, 1))
 COLOR = PIXEL.getcolors()
+X, Y = pyautogui.size()
+print(X, Y)
 
 print("Mouse: (%d,%d)" % (MOUSE_X, MOUSE_Y))
 print("RGB: %s" % (COLOR[0][1].__str__()))
 
-above = pyautogui.screenshot(region=(MOUSE_X, MOUSE_Y+50, 1, 50))
-below = pyautogui.screenshot(region=(MOUSE_X, MOUSE_Y-50, 1, 50))
-left = pyautogui.screenshot(region=(MOUSE_X+50, MOUSE_Y, 1, 50))
-right = pyautogui.screenshot(region=(MOUSE_X-50, MOUSE_Y, 1, 50))
-print(above.getcolors())
-checks = [above, below, left, right]
+#print(above.getcolors())
+#checks = [above, below, left, right]
 count = 0
-for check in checks:
-    if check.getcolors() == (75, 76, 169):
-        count += 1
-    if count >= 2:
-        clickable = True
+#for check in checks:
+#    if (0,0, 255) in check.getcolors():
+#        count += 1
+#    if count >= 2:
+#        clickable = True
 
 
 def on_click(x, y, button, pressed):
-    temp = pyautogui.screenshot(region=(x, y+50, 1, 50))
-    print(temp.getcolors())
-    print(x,y)
+    tempabove = pyautogui.screenshot(region=(x, y, 10, 60))
+    tempright = pyautogui.screenshot(region=(x,y, 60, 10))
+    tempbelow = pyautogui.screenshot(region=(x, y, 10, -60))
+    templeft = pyautogui.screenshot(region=(x,y, -60, 10))
+    print(tempabove.getcolors())
+    for i in range(101):
+        j = i + 1
+        if (j,(0,0,255)) in tempabove.getcolors():
+            print('Above detected')
+        if (j,(0,0,255)) in tempright.getcolors():
+            print('Right detected')
+        if (j,(0,0,255)) in tempbelow.getcolors():
+            print('Below detected')
+        if (j,(0,0,255)) in templeft.getcolors():
+            print('Left detected')
+
     
 def createBoard():
     global board
