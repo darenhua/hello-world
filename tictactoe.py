@@ -43,6 +43,7 @@ def on_click(x, y, button, pressed):
             print('Below detected')
         if (j,(0,0,255)) in templeft.getcolors():
             print('Left detected')
+        #screenshot does not operate as expected with negative width/heights. The only one I can really use is tempabove.getcolors()
 
     
 def createBoard():
